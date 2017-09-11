@@ -61,11 +61,19 @@ public class Main extends PApplet {
         int x = event.getX();
         int y = event.getY();
 
-
         int[] pos = Referee.getCurrentUser().putStone(x, y, width, row, margin);
         Stone newStone = new Stone(Referee.getCurrentUser().getColor(), pos[0], pos[1]);
         if(Referee.checkPossibility(stones, newStone) == false) {
             return;
+        }
+        if(Referee.checkGameOver(stones,newStone)){
+            System.out.println("gameover");
+        }
+
+        if(Referee.getCurrentUser().getColor() == 1) {
+            stones[pos[0]][pos[1]]= 1;
+        } else if(Referee.getCurrentUser().getColor() == 2) {
+            stones[pos[0]][pos[1]]= 2;
         }
 
         if(Referee.getCurrentUser() == user1) {
@@ -74,11 +82,7 @@ public class Main extends PApplet {
             Referee.setCurrentUser(user1);
         }
 
-        if(Referee.getCurrentUser().getColor() == 1) {
-            stones[pos[0]][pos[1]]= 1;
-        } else if(Referee.getCurrentUser().getColor() == 2) {
-            stones[pos[0]][pos[1]]= 2;
-        }
+
 
     }
 }
